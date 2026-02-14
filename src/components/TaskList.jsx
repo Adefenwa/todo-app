@@ -19,7 +19,7 @@ export default function TaskList() {
   const [statusFilter, setStatusFilter] = useState("all");
   const { data, error } = useQuery({
     queryKey: ["tasks", page],
-    queryFn: () => getTasks(page, 10),
+    queryFn: () => getTasks(page, 5),
   });
 
   const filteredTasks =
@@ -36,10 +36,12 @@ export default function TaskList() {
       return matchesSearch && matchesStatus;
     }) || [];
   return (
-    <main>
-      <h1>Task List</h1>
-      <div>
+    <main className="p-5 border border-solid">
+      <h1 className="text-2xl font-bold text-black">Task List</h1>
+      <p>Click on a todo list to view or delete it.</p>
+      <section className="my-4 flex justify-left items-center gap-5 p-2 w-2/3 bg-gray-50 border border-solid rounded-md">
         <input
+          className="w-2/4 border border-solid p-2 rounded-md"
           type="search"
           placeholder="Search tasks..."
           value={searchTerm}
@@ -47,15 +49,37 @@ export default function TaskList() {
           aria-label="Search tasks by name"
         />
 
-        <div role="group" aria-label="Filter tasks by status">
-          <button onClick={() => setStatusFilter("all")}>All</button>
-          <button onClick={() => setStatusFilter("TODO")}>To Do</button>
-          <button onClick={() => setStatusFilter("IN_PROGRESS")}>
+        <div
+          role="group"
+          aria-label="Filter tasks by status"
+          className="flex gap-3 justify-between items-center"
+        >
+          <button
+            onClick={() => setStatusFilter("all")}
+            className="bg-black hover:bg-gray-800 text-sm text-white font-medium py-2 px-4 rounded "
+          >
+            All
+          </button>
+          <button
+            onClick={() => setStatusFilter("TODO")}
+            className="bg-black hover:bg-gray-800 text-sm text-white font-medium py-2 px-4 rounded "
+          >
+            To Do
+          </button>
+          <button
+            onClick={() => setStatusFilter("IN_PROGRESS")}
+            className="bg-black hover:bg-gray-800 text-sm text-white font-medium py-2 px-4 rounded "
+          >
             In Progress
           </button>
-          <button onClick={() => setStatusFilter("DONE")}>Done</button>
+          <button
+            onClick={() => setStatusFilter("DONE")}
+            className="bg-black hover:bg-gray-800 text-sm text-white font-medium py-2 px-4 rounded "
+          >
+            Done
+          </button>
         </div>
-      </div>
+      </section>
 
       {error && (
         <p role="alert" aria-live="assertive">
@@ -69,10 +93,14 @@ export default function TaskList() {
             <p>No tasks found matching your search and filter criteria.</p>
           )}
           {filteredTasks.length > 0 && (
-            <ul>
+            <ul className="border border-solid my-4 p-2 w-2/3">
               {filteredTasks.map((task) => (
-                <li key={task.id}>
+                <li
+                  key={task.id}
+                  className="w-full bg-gray-50 border border-solid  p-4 rounded-md mb-2 flex gap-2 items-center justify-between hover:bg-gray-100 transition duration-200"
+                >
                   <Link
+                    className="flex gap-3"
                     to={`/tasks/${task.id}`}
                     aria-label={`View details for ${task.name} status ${task.status}`}
                   >
@@ -81,16 +109,34 @@ export default function TaskList() {
                       {getStatusEmoji(task.status)}
                     </span>
                   </Link>
+                  <div className="flex gap-5 items-center">
+                    <Link
+                      to={`/tasks/${task.id}`}
+                      className="bg-black text-white text-sm hover:bg-gray-600 px-3 py-1 rounded-md"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      to={`/tasks/${task.id}`}
+                      className="bg-red-600 text-sm hover:bg-red-800 text-white px-3 py-1 rounded-md"
+                    >
+                      Delete
+                    </Link>
+                  </div>
                 </li>
               ))}
             </ul>
           )}
 
-          <nav aria-label="Pagination navigation for tasks list">
+          <nav
+            aria-label="Pagination navigation for tasks list"
+            className="flex gap-2 items-center justify-between w-2/3"
+          >
             <button
               onClick={() => setPage(page - 1)}
               disabled={!data.meta.hasPreviousPage}
               aria-label={"Previous page of tasks list"}
+              className={`px-4 py-2 text-sm rounded-md cursor-pointer ${!data.meta.hasPreviousPage ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-black text-white hover:bg-gray-800"}`}
             >
               Previous
             </button>
@@ -101,6 +147,7 @@ export default function TaskList() {
               onClick={() => setPage(page + 1)}
               disabled={!data.meta.hasNextPage}
               aria-label={"Next page of tasks list"}
+              className={`px-4 py-2 rounded-md text-sm cursor-pointer ${!data.meta.hasNextPage ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-black text-white hover:bg-gray-800"}`}
             >
               Next
             </button>

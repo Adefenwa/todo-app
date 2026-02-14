@@ -33,7 +33,7 @@ function Nav() {
                   onClick={() => setIsOpen(false)}
                 >
                   <ListTodo size={14} strokeWidth={1.25} />
-                  Tasks
+                  Todos
                 </Link>
               </li>
               <li className="bg-black hover:opacity-75 rounded-md px-5 py-2 text-white font-semibold text-sm">
@@ -61,7 +61,7 @@ function Nav() {
                 to="/tasks"
               >
                 <ListTodo size={14} strokeWidth={1.25} />
-                Tasks
+                Todos
               </Link>
             </li>
             <li className="bg-black hover:opacity-75 rounded-md px-5 py-2 text-white font-semibold text-sm transition delay-150 duration-300 ease-in-out hover:translate-y-0.5 hover:scale-110">
