@@ -39,7 +39,7 @@ export default function TaskDetail() {
       )}
       {task && (
         <main className="p-4">
-          <div className="w-2/3 flex justify-between items-center">
+          <div className="w-full lg:w-3/4  lg:flex lg:justify-between lg:items-center">
             <button
               onClick={() => navigate("/tasks")}
               aria-label="Back to Tasks list"
@@ -51,7 +51,7 @@ export default function TaskDetail() {
 
             <p className="">Task ID: #{task.id}</p>
           </div>
-          <section className="bg-gray-50 w-2/3 my-5 p-3 rounded-md">
+          <section className="bg-gray-50 w-full lg:w-3/4 my-5 p-3 rounded-md">
             <h1 className="text-3xl font-bold p-2">{task.name}</h1>
             <div className="border-bottom-2 border-solid border-black ">
               <p className="mx-3 text-gray-500 mt-2">Status</p>
