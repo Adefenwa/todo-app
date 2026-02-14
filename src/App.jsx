@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import React from "react";
 import Spinner from "./pages/Spinner.jsx";
 
+const Nav = React.lazy(() => import("./pages/Nav.jsx"));
 const TaskList = React.lazy(() => import("./components/TaskList.jsx"));
 const TaskDetail = React.lazy(() => import("./pages/TaskDetail.jsx"));
 const HomePage = React.lazy(() => import("./pages/HomePage.jsx"));
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <Suspense fallback={<Spinner />}>
+        <Nav />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
