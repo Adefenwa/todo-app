@@ -4,56 +4,109 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const getStatusEmoji = (status) => {
-  if (!status) return "";
-  const s = String(status).toLowerCase().trim();
-  if (s === "done") return "✅";
-  if (s === "in progress" || s === "in-progress" || s === "inprogress")
-    return "⏳";
-  if (s === "todo" || s === "to do" || s === "pending") return "⏸️";
-  return "";
+  switch (status) {
+    case "TODO":
+      return "⏳";
+    case "IN_PROGRESS":
+      return "🚧";
+    case "DONE":
+      return "✅";
+  }
 };
-export function TaskList() {
+export default function TaskList() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, error } = useQuery({
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const { data, error } = useQuery({
     queryKey: ["tasks", page],
     queryFn: () => getTasks(page, 10),
   });
+
+  const filteredTasks =
+    data?.tasks.filter((task) => {
+      // Search filter
+      const matchesSearch = task.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      // Status filter
+      const matchesStatus =
+        statusFilter === "all" || task.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    }) || [];
   return (
-    <div>
+    <main>
       <h1>Task List</h1>
-      {isLoading && <p>Loading tasks...</p>}
-      {error && <p>Error loading tasks: {error.message}</p>}
+      <div>
+        <input
+          type="search"
+          placeholder="Search tasks..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          aria-label="Search tasks by name"
+        />
+
+        <div role="group" aria-label="Filter tasks by status">
+          <button onClick={() => setStatusFilter("all")}>All</button>
+          <button onClick={() => setStatusFilter("TODO")}>To Do</button>
+          <button onClick={() => setStatusFilter("IN_PROGRESS")}>
+            In Progress
+          </button>
+          <button onClick={() => setStatusFilter("DONE")}>Done</button>
+        </div>
+      </div>
+
+      {error && (
+        <p role="alert" aria-live="assertive">
+          Error loading tasks: {error.message}
+        </p>
+      )}
       {data && (
         <>
           {/* {console.log(data)} */}
-          <ul>
-            {data.tasks.map((task) => (
-              <li key={task.id}>
-                <Link to={`/tasks/${task.id}`}>
-                  {task.name} {getStatusEmoji(task.status)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div>
+          {filteredTasks.length === 0 && (
+            <p>No tasks found matching your search and filter criteria.</p>
+          )}
+          {filteredTasks.length > 0 && (
+            <ul>
+              {filteredTasks.map((task) => (
+                <li key={task.id}>
+                  <Link
+                    to={`/tasks/${task.id}`}
+                    aria-label={`View details for ${task.name} status ${task.status}`}
+                  >
+                    {task.name}{" "}
+                    <span aria-hidden="true">
+                      {getStatusEmoji(task.status)}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <nav aria-label="Pagination navigation for tasks list">
             <button
               onClick={() => setPage(page - 1)}
               disabled={!data.meta.hasPreviousPage}
+              aria-label={"Previous page of tasks list"}
             >
               Previous
             </button>
-            <span>
+            <span aria-live={"polite"} aria-atomic={"true"}>
               Page {data.meta.page} of {data.meta.totalPages}
             </span>
             <button
               onClick={() => setPage(page + 1)}
               disabled={!data.meta.hasNextPage}
+              aria-label={"Next page of tasks list"}
             >
               Next
             </button>
-          </div>
+          </nav>
         </>
       )}
-    </div>
+    </main>
   );
 }

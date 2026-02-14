@@ -2,32 +2,37 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getTask } from "../api/tasks";
 
-export function TaskDetail() {
+export default function TaskDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const {
-    data: task,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: task, error } = useQuery({
     queryKey: ["task", id],
     queryFn: () => getTask(id),
   });
 
   return (
-    <div>
-      {console.log(task)}
-      {isLoading && <p>Loading tasks...</p>}
-      {error && <p>Error loading tasks: {error.message}</p>}
+    <main>
+      {/* {console.log(task)} */}
+
+      {error && (
+        <p role="alert" aria-live="assertive">
+          Error loading task: {error.message}
+        </p>
+      )}
       {task && (
-        <div>
-          <button onClick={() => navigate("/tasks")}>Back to Tasks</button>
+        <section>
+          <button
+            onClick={() => navigate("/tasks")}
+            aria-label="Back to Tasks list"
+          >
+            Back to Tasks
+          </button>
           <h1>{task.name}</h1>
           <p>Status: {task.status}</p>
           <p>Description: {task.description}</p>
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 }
