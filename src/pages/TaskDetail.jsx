@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getTask } from "../api/tasks";
 import { MoveLeft, Notebook } from "lucide-react";
+import { useHead } from "@unhead/react";
 
 function formatDate(value) {
   if (!value) return "";
@@ -20,6 +21,15 @@ function formatDate(value) {
 }
 
 export default function TaskDetail() {
+  useHead({
+    title: "Task Detail - TaskFlow",
+    meta: [
+      {
+        name: "description",
+        content: "View details of a specific task in TaskFlow.",
+      },
+    ],
+  });
   const { id } = useParams();
   const navigate = useNavigate();
 

@@ -1,4 +1,15 @@
+import { useHead } from "@unhead/react";
+
 export default function HomePage() {
+  useHead({
+    title: "Home - TaskFlow",
+    meta: [
+      {
+        name: "description",
+        content: "Welcome to TaskFlow, your ultimate task management app.",
+      },
+    ],
+  });
   return (
     <main className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-3xl font-bold text-black">Welcome to TaskFlow</h1>

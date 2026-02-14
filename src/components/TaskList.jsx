@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "../api/tasks.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useHead } from "@unhead/react";
 
 const getStatusEmoji = (status) => {
   switch (status) {
@@ -14,6 +15,15 @@ const getStatusEmoji = (status) => {
   }
 };
 export default function TaskList() {
+  useHead({
+    title: "Task List - TaskFlow",
+    meta: [
+      {
+        name: "description",
+        content: "View and manage your tasks in TaskFlow.",
+      },
+    ],
+  });
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
