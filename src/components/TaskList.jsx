@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTasks } from "../api/tasks.js";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const getStatusEmoji = (status) => {
   if (!status) return "";
@@ -28,7 +29,9 @@ export function TaskList() {
           <ul>
             {data.tasks.map((task) => (
               <li key={task.id}>
-                {task.name} {getStatusEmoji(task.status)}
+                <Link to={`/tasks/${task.id}`}>
+                  {task.name} {getStatusEmoji(task.status)}
+                </Link>
               </li>
             ))}
           </ul>
