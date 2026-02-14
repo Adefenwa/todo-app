@@ -50,16 +50,19 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 ### Core Technologies
 
 **React 19**
+
 - Chosen for its component-based architecture, hooks ecosystem, and modern features like Suspense
 - Enables building reusable, maintainable UI components
 - Excellent developer experience with fast refresh and debugging tools
 
 **React Router v6**
+
 - Industry-standard routing solution for React applications
 - Provides declarative routing with nested routes support
 - Enables clean URL structure and browser history management
 
 **Tanstack Query (React Query)**
+
 - Powerful data synchronization library for React
 - Automatic caching, background refetching, and request deduplication
 - Simplifies complex async state management
@@ -67,6 +70,7 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 - Works seamlessly with React Suspense
 
 **Tailwind CSS**
+
 - Utility-first CSS framework for rapid UI development
 - Ensures consistent design system across the application
 - Mobile-first responsive design utilities
@@ -76,16 +80,19 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 ### Supporting Libraries
 
 **Lucide React**
+
 - Modern, consistent icon set
 - Tree-shakeable for optimal bundle size
 - Accessible SVG icons
 
 **React Hook Form**
+
 - Performant form validation and handling
 - Minimal re-renders for better performance
 - Simple API with excellent TypeScript support
 
 **React Error Boundary**
+
 - Robust error handling solution
 - Provides error recovery mechanisms
 - Better user experience when errors occur
@@ -102,12 +109,14 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone [repository-url]
 cd taskflow
 ```
 
 2. Install dependencies:
+
 ```bash
 # Using npm
 npm install
@@ -120,6 +129,7 @@ bun install
 ```
 
 3. Start the development server:
+
 ```bash
 # Using npm
 npm run dev
@@ -132,6 +142,7 @@ bun run dev
 ```
 
 4. Open your browser and navigate to:
+
 ```
 http://localhost:5173
 ```
@@ -149,6 +160,7 @@ No environment variables are required for basic functionality. The application c
 ```bash
 npm run dev
 ```
+
 Starts the development server with hot module replacement at `http://localhost:5173`
 
 ### Build
@@ -156,6 +168,7 @@ Starts the development server with hot module replacement at `http://localhost:5
 ```bash
 npm run build
 ```
+
 Creates an optimized production build in the `dist` folder
 
 ### Preview
@@ -163,6 +176,7 @@ Creates an optimized production build in the `dist` folder
 ```bash
 npm run preview
 ```
+
 Previews the production build locally
 
 ### Lint
@@ -170,6 +184,7 @@ Previews the production build locally
 ```bash
 npm run lint
 ```
+
 Runs ESLint to check code quality and adherence to coding standards
 
 ---
@@ -217,6 +232,7 @@ The application integrates with a RESTful API using Tanstack Query for efficient
 ### Pagination
 
 Server-side pagination implementation:
+
 - Fetches only the required data per page (10 items)
 - Previous/Next navigation with disabled states at boundaries
 - Page number display with total pages count
@@ -225,6 +241,7 @@ Server-side pagination implementation:
 ### Search and Filtering
 
 Client-side filtering for instant results:
+
 - Real-time search as you type
 - Filter by task status (All, To Do, In Progress, Done)
 - Combines search and filter criteria
@@ -244,6 +261,7 @@ Client-side filtering for instant results:
 ### Error Handling
 
 Comprehensive error handling strategy:
+
 - Error Boundary catches React component errors
 - Query error states for API failures
 - Custom 404 page for invalid routes
@@ -256,19 +274,24 @@ Comprehensive error handling strategy:
 ## Screenshots
 
 ### Task List Page
-[Add screenshot of the main task list with pagination and filters]
+
+![Task List](./src/assets/screenshots/task-list.png)
 
 ### Task Detail Page
-[Add screenshot of individual task detail view]
+
+![Task Detail](./src/assets/screenshots/task-detail.png)
 
 ### Search and Filter
-[Add screenshot demonstrating search and filtering functionality]
+
+![Search and filtering functionality](./src/assets/screenshots/search-filering.png)
 
 ### Responsive Design
-[Add screenshots showing mobile and tablet views]
+
+![Mobile View](./src/assets/screenshots/mobile-view.png)
 
 ### Error Handling
-[Add screenshot of error boundary in action]
+
+![Error boundary in action](./src/assets/screenshots/error-test.png)
 
 ---
 
@@ -369,6 +392,7 @@ Given more development time, the following features would enhance the applicatio
 ## Accessibility Compliance
 
 TaskFlow adheres to WCAG 2.1 Level AA standards:
+
 - Keyboard navigation throughout the application
 - Screen reader compatibility
 - Sufficient color contrast ratios
@@ -396,6 +420,7 @@ This project is developed as part of a frontend engineering assessment.
 ## Contact
 
 **Sotunde Emmanuel**
+
 - GitHub: [@Adefenwa](https://github.com/Adefenwa)
 - Email: [Add your email here]
 
