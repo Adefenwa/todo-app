@@ -9,13 +9,13 @@ function Nav() {
         <div>
           <h2 className="font-bold text-black">TaskFlow</h2>
         </div>
-        <div>
+        <div className="relative">
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             ☰
           </button>
 
           {isOpen && (
-            <ul className="md:hidden mt-4 flex flex-col gap-4 bg-amber-50">
+            <ul className="md:hidden mt-4 flex flex-col gap-4 absolute right-0 transition-all duration-300 ease-in-out bg-white p-4 rounded-md shadow-lg">
               <li className="bg-black hover:opacity-75 rounded-md px-5 py-2 text-white font-semibold text-sm ">
                 <Link
                   className="flex justify-between items-center gap-2"

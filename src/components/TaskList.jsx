@@ -39,9 +39,13 @@ export default function TaskList() {
     <main className="p-5 border border-solid">
       <h1 className="text-2xl font-bold text-black">Task List</h1>
       <p>Click on a todo list to view or delete it.</p>
-      <section className="my-4 flex justify-left items-center gap-5 p-2 w-2/3 bg-gray-50 border border-solid rounded-md">
+      <section
+        className="border-2 border-solid w-full lg:flex lg:justify-between lg:gap-4 lg:items-center my-4 p-2 lg:w-3/4 bg-gray-50 rounded-md"
+        // className="my-4 flex justify-left items-center gap-5 p-2 w-2/3 bg-gray-50 border border-solid rounded-md"
+      >
         <input
-          className="w-2/4 border border-solid p-2 rounded-md"
+          // className="w-2/4 border border-solid p-2 rounded-md"
+          className="w-full border border-solid p-2 rounded-lg my-2 lg:w-2/4"
           type="search"
           placeholder="Search tasks..."
           value={searchTerm}
@@ -52,7 +56,8 @@ export default function TaskList() {
         <div
           role="group"
           aria-label="Filter tasks by status"
-          className="flex gap-3 justify-between items-center"
+          // className="flex gap-3 justify-between items-center"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
         >
           <button
             onClick={() => setStatusFilter("all")}
@@ -93,7 +98,7 @@ export default function TaskList() {
             <p>No tasks found matching your search and filter criteria.</p>
           )}
           {filteredTasks.length > 0 && (
-            <ul className="border border-solid my-4 p-2 w-2/3">
+            <ul className="border border-solid my-4 p-2 w-full lg:w-3/4 rounded-md">
               {filteredTasks.map((task) => (
                 <li
                   key={task.id}
@@ -130,7 +135,7 @@ export default function TaskList() {
 
           <nav
             aria-label="Pagination navigation for tasks list"
-            className="flex gap-2 items-center justify-between w-2/3"
+            className="flex gap-2 items-center w-full justify-between lg:w-3/4"
           >
             <button
               onClick={() => setPage(page - 1)}
