@@ -6,7 +6,7 @@ A modern, accessible task management application built with React 19 and designe
 
 **Live Demo:** [Add deployment URL here]
 
-**Repository:** [Add GitHub repository URL here]
+**Repository:** [TaskFlow](https://github.com/Adefenwa/todo-app)
 
 ---
 
@@ -40,6 +40,8 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 - React Router for client-side routing
 - Tanstack Query for efficient data fetching and caching
 - Lazy-loaded components for optimized performance
+- SEO optimization with dynamic meta tags and titles
+- Page-specific meta descriptions for better search engine visibility
 - Semantic HTML5 structure
 - Accessible form controls and navigation
 
@@ -78,6 +80,14 @@ Built as part of a frontend engineering assessment, TaskFlow showcases proficien
 - Easy to maintain and customize
 
 ### Supporting Libraries
+
+**unHead**
+
+- Modern document head management for React
+- Dynamic meta tags and title updates per route
+- SEO optimization with minimal overhead
+- Better performance than traditional solutions
+- Server-side rendering compatible
 
 **Lucide React**
 
