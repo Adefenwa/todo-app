@@ -1,10 +1,13 @@
 const BASE_URL = "https://api.oluwasetemi.dev";
 
 export async function apiClient(path, options = {}) {
+  const token = localStorage().getItem("token");
+  const headers = { "Content-Type": "application/json" };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
   const response = await fetch(`${BASE_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers,
     ...options,
   });
 
@@ -13,7 +16,7 @@ export async function apiClient(path, options = {}) {
   }
 
   if (response.status === 204) {
-    return null; // No content to return
+    return { success: true };
   }
   return response.json();
 }
