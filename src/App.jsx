@@ -9,6 +9,8 @@ const TaskDetail = React.lazy(() => import("./pages/TaskDetail.jsx"));
 const HomePage = React.lazy(() => import("./pages/HomePage.jsx"));
 const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
 const ErrorTest = React.lazy(() => import("./pages/ErrorTest.jsx"));
+const Login = React.lazy(() => import("./pages/Login.jsx"));
+const Register = React.lazy(() => import("./pages/Register.jsx"));
 
 function App() {
   return (
@@ -35,6 +37,22 @@ function App() {
           />
           <Route path="/about" element={<div>About Page</div>} />
           <Route path="/error-test" element={<ErrorTest />} />
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Login />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <Register />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Suspense>
