@@ -12,7 +12,12 @@ export async function apiClient(path, options = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed with status ${response.status}`);
+    const errorData = await response.json().catch(() => ({}));
+    const message =
+      errorData.message ||
+      errorData.error ||
+      `API request failed with status ${response.status}`;
+    throw new Error(message);
   }
 
   if (response.status === 204) {
