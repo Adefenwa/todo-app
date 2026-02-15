@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "../api/tasks.js";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getTasks, deleteTask } from "../api/tasks.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHead } from "@unhead/react";
@@ -27,10 +27,31 @@ export default function TaskList() {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (taskId) => deleteTask(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks", page] });
+    },
+    onError: (error) => {
+      alert(`Error deleting task: ${error.message}`);
+    },
+  });
   const { data, error } = useQuery({
     queryKey: ["tasks", page],
-    queryFn: () => getTasks(page, 5),
+    queryFn: () => getTasks(page, 10),
   });
+
+  const handleDelete = (taskId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task?",
+    );
+
+    if (confirmed) {
+      deleteMutation.mutate(taskId);
+    }
+  };
 
   const filteredTasks =
     data?.tasks.filter((task) => {
@@ -131,12 +152,12 @@ export default function TaskList() {
                     >
                       View
                     </Link>
-                    <Link
-                      to={`/tasks/${task.id}`}
+                    <button
+                      onClick={() => handleDelete(task.id)}
                       className="bg-red-600 text-sm hover:bg-red-800 text-white px-3 py-1 rounded-md"
                     >
                       Delete
-                    </Link>
+                    </button>
                   </div>
                 </li>
               ))}

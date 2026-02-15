@@ -12,5 +12,8 @@ export async function apiClient(path, options = {}) {
     throw new Error(`API request failed with status ${response.status}`);
   }
 
+  if (response.status === 204) {
+    return null; // No content to return
+  }
   return response.json();
 }

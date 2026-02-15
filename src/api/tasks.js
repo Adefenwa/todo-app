@@ -8,3 +8,10 @@ export async function getTask(id) {
   const response = await apiClient(`/tasks/${id}`);
   return response;
 }
+
+export async function deleteTask(id) {
+  const response = await apiClient(`/tasks/${id}`, {
+    method: "DELETE",
+  });
+  return response;
+}
