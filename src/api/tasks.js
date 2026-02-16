@@ -15,3 +15,11 @@ export async function deleteTask(id) {
   });
   return response;
 }
+
+export async function createTask(taskData) {
+  const response = await apiClient("/tasks", {
+    method: "POST",
+    body: JSON.stringify(taskData),
+  });
+  return response;
+}
