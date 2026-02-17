@@ -1,6 +1,7 @@
 import { useHead } from "@unhead/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CreateTaskModal } from "../components/CreateTaskModal";
 
 export default function HomePage() {
   useHead({
@@ -34,6 +35,10 @@ export default function HomePage() {
           View Todos
         </button>
       </section>
+      <CreateTaskModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </main>
   );
 }

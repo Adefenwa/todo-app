@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getTasks, deleteTask } from "../api/tasks.js";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHead } from "@unhead/react";
 
 const getStatusEmoji = (status) => {
@@ -28,11 +28,12 @@ export default function TaskList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const queryClient = useQueryClient();
-
+  const navigate = useNavigate();
   const deleteMutation = useMutation({
     mutationFn: (taskId) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks", page] });
+      navigate("/tasks");
     },
     onError: (error) => {
       alert(`Error deleting task: ${error.message}`);

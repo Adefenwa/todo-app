@@ -23,3 +23,11 @@ export async function createTask(taskData) {
   });
   return response;
 }
+
+export async function updateTask(id, taskData) {
+  const response = await apiClient(`/tasks/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(taskData),
+  });
+  return response;
+}
