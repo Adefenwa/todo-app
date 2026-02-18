@@ -10,7 +10,7 @@ export function EditTaskModal({ isOpen, onClose, task }) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (taskData) => updateTask(taskData, task.id),
+    mutationFn: (taskData) => updateTask(task.id, taskData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["task", task.id] });
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

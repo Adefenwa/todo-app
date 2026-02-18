@@ -86,29 +86,5 @@ export function CreateTaskModal({ isOpen, onClose }) {
         </main>
       </div>
     </>
-    // <div className="modal-overlay" onClick={onClose}>
-    //   <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-    //     <h2>Create New Task</h2>
-    //     <form onSubmit={handleSubmit}>
-    //       <input
-    //         type="text"
-    //         placeholder="Task name"
-    //         value={name}
-    //         onChange={(e) => setName(e.target.value)}
-    //       />
-    //       <textarea
-    //         placeholder="Task description"
-    //         value={description}
-    //         onChange={(e) => setDescription(e.target.value)}
-    //       />
-    //       <select value={status} onChange={(e) => setStatus(e.target.value)}>
-    //         <option value="TODO">To Do</option>
-    //         <option value="IN_PROGRESS">In Progress</option>
-    //         <option value="DONE">Done</option>
-    //       </select>
-    //       <button type="submit">Create Task</button>
-    //     </form>
-    //   </div>
-    // </div>
   );
 }

@@ -3,6 +3,7 @@ import { getTasks, deleteTask } from "../api/tasks.js";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useHead } from "@unhead/react";
+import { getCurrentUser } from "../lib/auth.js";
 
 const getStatusEmoji = (status) => {
   switch (status) {
@@ -29,11 +30,17 @@ export default function TaskList() {
   const [statusFilter, setStatusFilter] = useState("all");
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const currentUser = getCurrentUser();
+    if (!currentUser) {
+      navigate("/login");
+      return null;
+    }
+
   const deleteMutation = useMutation({
     mutationFn: (taskId) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks", page] });
-      navigate("/tasks");
+      // navigate("/tasks");
     },
     onError: (error) => {
       alert(`Error deleting task: ${error.message}`);
@@ -43,6 +50,8 @@ export default function TaskList() {
     queryKey: ["tasks", page],
     queryFn: () => getTasks(page, 10),
   });
+
+
 
   const handleDelete = (taskId) => {
     const confirmed = window.confirm(
@@ -56,16 +65,16 @@ export default function TaskList() {
 
   const filteredTasks =
     data?.tasks.filter((task) => {
-      // Search filter
+      const isMyTask = task.owner === currentUser?.id;
+
       const matchesSearch = task.name
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-      // Status filter
       const matchesStatus =
         statusFilter === "all" || task.status === statusFilter;
 
-      return matchesSearch && matchesStatus;
+      return isMyTask && matchesSearch && matchesStatus;
     }) || [];
   return (
     <main className="p-5 border border-solid">

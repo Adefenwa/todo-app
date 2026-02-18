@@ -11,7 +11,10 @@ export default function Login() {
     mutationFn: (credentials) => login(credentials),
     onSuccess: (data) => {
       localStorage.setItem("authToken", data.token);
-      navigate("/tasks");
+      localStorage.setItem("user", JSON.stringify(data.user));
+      // window.location.href = "/";
+      navigate("/");
+      // window.location.reload();
     },
     onError: (error) => {
       alert(`Login failed: ${error.message}`);
