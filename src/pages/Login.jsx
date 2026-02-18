@@ -10,6 +10,7 @@ export default function Login() {
   const mutation = useMutation({
     mutationFn: (credentials) => login(credentials),
     onSuccess: (data) => {
+      console.log("Login Response Data:", data);
       localStorage.setItem("authToken", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       // window.location.href = "/";
