@@ -69,7 +69,7 @@ export default function Login() {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <button
             type="submit"
             disabled={mutation.isPending}
@@ -77,8 +77,11 @@ export default function Login() {
           >
             {mutation.isPending ? "Logging in" : "Login"}
           </button>
+          <span className="text-gray-500 text-xs ml-14 italic">
+            Don't have an account?
+          </span>
           <button
-            className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded transition delay-150 duration-300 ease-in-out hover:translate-y-0.5 hover:scale-110 mt-6"
+            className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition delay-150 duration-300 ease-in-out hover:translate-y-0.5 hover:scale-110"
             onClick={() => navigate("/register")}
           >
             Register

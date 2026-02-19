@@ -102,6 +102,15 @@ export default function Register() {
           >
             {mutation.isPending ? "Registering..." : "Register"}
           </button>
+          <span className="text-gray-500 text-xs ml-14 italic">
+            Already have an account?
+          </span>
+          <button
+            className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition delay-150 duration-300 ease-in-out hover:translate-y-0.5 hover:scale-110"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
         </div>
       </form>
     </main>
