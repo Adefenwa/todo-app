@@ -11,6 +11,7 @@ const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
 const ErrorTest = React.lazy(() => import("./pages/ErrorTest.jsx"));
 const Login = React.lazy(() => import("./pages/Login.jsx"));
 const Register = React.lazy(() => import("./pages/Register.jsx"));
+const About = React.lazy(() => import("./pages/About.jsx"));
 
 function App() {
   return (
@@ -35,7 +36,15 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="/about" element={<div>About Page</div>} />
+          <Route
+            path="/about"
+            element={
+              <Suspense fallback={<Spinner />}>
+                <About />
+                <Suspense />
+              </Suspense>
+            }
+          />
           <Route path="/error-test" element={<ErrorTest />} />
           <Route
             path="/login"
