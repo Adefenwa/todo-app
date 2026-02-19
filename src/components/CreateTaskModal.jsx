@@ -13,10 +13,18 @@ export function CreateTaskModal({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (taskData) => createTask(taskData),
-    onSuccess: (data) => {
-      console.log("Created task:", data);
-      console.log("Owner field:", data?.owner);
+    mutationFn: (taskData) => {
+      // console.log("=== CREATING TASK ===");
+      // console.log("Task data being sent:", taskData);
+      // console.log("Token RIGHT NOW:", localStorage.getItem("authToken"));
+      // console.log("===================");
+      return createTask(taskData);
+    },
+    onSuccess: () => {
+      // console.log("=== TASK CREATED ===");
+      // console.log("Response:", data);
+      // console.log("Owner:", data?.owner);
+      // console.log("===================");
       setName("");
       setDescription("");
       setStatus("TODO");
@@ -32,29 +40,29 @@ export function CreateTaskModal({ isOpen, onClose }) {
       alert("Error creating task: " + error.message);
     },
   });
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   mutation.mutate({ name, description, status });
-  // };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    // MANUAL LOG TO SEE WHAT IS ACTUALLY IN STORAGE
-    console.log("Current Token in Storage:", localStorage.getItem("authToken"));
-
-    // TEMPORARY MANUAL FETCH TEST
-    const testResponse = await fetch("https://api.oluwasetemi.dev/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-      body: JSON.stringify({ name, description, status }),
-    });
-    const testData = await testResponse.json();
-    console.log("Manual Test Result:", testData);
+    mutation.mutate({ name, description, status });
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   // MANUAL LOG TO SEE WHAT IS ACTUALLY IN STORAGE
+  //   console.log("Current Token in Storage:", localStorage.getItem("authToken"));
+
+  //   // TEMPORARY MANUAL FETCH TEST
+  //   const testResponse = await fetch("https://api.oluwasetemi.dev/tasks", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+  //     },
+  //     body: JSON.stringify({ name, description, status }),
+  //   });
+  //   const testData = await testResponse.json();
+  //   console.log("Manual Test Result:", testData);
+  // };
   if (!isOpen) return null;
 
   return (

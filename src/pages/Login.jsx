@@ -10,12 +10,16 @@ export default function Login() {
   const mutation = useMutation({
     mutationFn: (credentials) => login(credentials),
     onSuccess: (data) => {
-      console.log("Login Response Data:", data);
-      localStorage.setItem("authToken", data.token);
+      // console.log("=== FULL LOGIN RESPONSE ===");
+      // console.log(data);
+      // console.log("Keys in response:", Object.keys(data));
+      // console.log("===================");
+
+      localStorage.setItem("authToken", data.accessToken);
       localStorage.setItem("user", JSON.stringify(data.user));
-      // window.location.href = "/";
+
       navigate("/");
-      // window.location.reload();
+      window.location.reload();
     },
     onError: (error) => {
       alert(`Login failed: ${error.message}`);
@@ -25,7 +29,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate({ email, password });
-    console.log("Login attempted", { email, password });
+    // console.log("Login attempted", { email, password });
   };
   return (
     <main className="flex flex-col items-center justify-center h-screen">
