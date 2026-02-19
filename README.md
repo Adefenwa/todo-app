@@ -14,7 +14,7 @@ A modern, accessible task management application built with React 19 and designe
 
 TaskFlow is a feature-rich todo application that demonstrates modern React development practices and accessibility standards. The application provides a clean, intuitive interface for managing tasks with robust filtering, search capabilities, and comprehensive error handling.
 
-Built as part of a frontend engineering assessment, TaskFlow showcases proficiency in React ecosystem tools, API integration, state management, and accessible web development.
+Built as part of AltSchool Africa frontend engineering assessment, TaskFlow showcases proficiency in React ecosystem tools, API integration, state management, and accessible web development.
 
 ---
 
