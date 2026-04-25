@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getTasks, deleteTask } from "../api/tasks.js";
+import { getTasks, deleteTask } from "../api/tasks";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useHead } from "@unhead/react";
-import { getCurrentUser } from "../lib/auth.js";
+import { getCurrentUser } from "../lib/auth";
 
-const getStatusEmoji = (status) => {
+type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
+const getStatusEmoji = (status: TaskStatus) => {
   switch (status) {
     case "TODO":
       return "⏳";
@@ -31,10 +32,10 @@ export default function TaskList() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const currentUser = getCurrentUser();
-    if (!currentUser) {
-      navigate("/login");
-      return null;
-    }
+  if (!currentUser) {
+    navigate("/login");
+    return null;
+  }
 
   const deleteMutation = useMutation({
     mutationFn: (taskId) => deleteTask(taskId),
@@ -50,8 +51,6 @@ export default function TaskList() {
     queryKey: ["tasks", page],
     queryFn: () => getTasks(page, 10),
   });
-
-
 
   const handleDelete = (taskId) => {
     const confirmed = window.confirm(
