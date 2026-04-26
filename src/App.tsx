@@ -1,17 +1,17 @@
 import { Route, Routes } from "react-router-dom";
-import { Suspense } from "react";
 import React from "react";
-import Spinner from "./pages/Spinner.jsx";
+import { Suspense } from "react";
+import Spinner from "./pages/Spinner";
 
-const Nav = React.lazy(() => import("./pages/Nav.jsx"));
-const TaskList = React.lazy(() => import("./components/TaskList.jsx"));
-const TaskDetail = React.lazy(() => import("./pages/TaskDetail.jsx"));
-const HomePage = React.lazy(() => import("./pages/HomePage.jsx"));
-const ErrorPage = React.lazy(() => import("./pages/ErrorPage.jsx"));
-const ErrorTest = React.lazy(() => import("./pages/ErrorTest.jsx"));
-const Login = React.lazy(() => import("./pages/Login.jsx"));
-const Register = React.lazy(() => import("./pages/Register.jsx"));
-const About = React.lazy(() => import("./pages/About.jsx"));
+const Nav = React.lazy(() => import("./pages/Nav"));
+const TaskList = React.lazy(() => import("./components/TaskList"));
+const TaskDetail = React.lazy(() => import("./pages/TaskDetail"));
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
+const ErrorTest = React.lazy(() => import("./pages/ErrorTest"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Register = React.lazy(() => import("./pages/Register"));
+const About = React.lazy(() => import("./pages/About"));
 
 function App() {
   return (

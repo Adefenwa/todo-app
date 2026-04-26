@@ -1,16 +1,38 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { updateTask } from "../api/tasks.js";
+import React from "react";
+import { updateTask } from "../api/tasks";
 
-export function EditTaskModal({ isOpen, onClose, task }) {
+interface EditTaskModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  task: {
+    id: number;
+    name: string;
+    description: string;
+    status: TaskStatus;
+  };
+}
+
+type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
+
+interface EditTaskData {
+  name: string;
+  description: string;
+  status: TaskStatus;
+}
+
+export function EditTaskModal({ isOpen, onClose, task }: EditTaskModalProps) {
   const [name, setName] = useState(task?.name ?? "");
   const [description, setDescription] = useState(task?.description ?? "");
-  const [status, setStatus] = useState(task?.status ?? "TODO");
+  const [status, setStatus] = useState<TaskStatus>(
+    (task?.status as TaskStatus) ?? "TODO",
+  );
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (taskData) => updateTask(task.id, taskData),
+    mutationFn: (taskData: EditTaskData) => updateTask(task.id, taskData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["task", task.id] });
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
@@ -21,7 +43,7 @@ export function EditTaskModal({ isOpen, onClose, task }) {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     mutation.mutate({ name, description, status });
   };
@@ -60,7 +82,7 @@ export function EditTaskModal({ isOpen, onClose, task }) {
           />
           <select
             value={status}
-            onChange={(e) => setStatus(e.target.value)}
+            onChange={(e) => setStatus(e.target.value as TaskStatus)}
             className="w-full p-2 border border-gray-300 rounded"
           >
             <option value="TODO">To Do</option>

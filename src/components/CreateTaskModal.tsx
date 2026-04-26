@@ -1,19 +1,31 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { createTask } from "../api/tasks.js";
+import { createTask } from "../api/tasks";
 import { useNavigate } from "react-router-dom";
 
-export function CreateTaskModal({ isOpen, onClose }) {
+interface CreateTaskModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+type TaskStatus = "TODO" | "IN_PROGRESS" | "DONE";
+
+interface CreateTaskData {
+  name: string;
+  description: string;
+  status: TaskStatus;
+}
+export function CreateTaskModal({ isOpen, onClose }: CreateTaskModalProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("TODO");
+  const [status, setStatus] = useState<TaskStatus>("TODO");
   // const [owner, setOwner] = useState(null);
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const mutation = useMutation({
-    mutationFn: (taskData) => {
+    mutationFn: (taskData: CreateTaskData) => {
       // console.log("=== CREATING TASK ===");
       // console.log("Task data being sent:", taskData);
       // console.log("Token RIGHT NOW:", localStorage.getItem("authToken"));
@@ -40,7 +52,7 @@ export function CreateTaskModal({ isOpen, onClose }) {
       alert("Error creating task: " + error.message);
     },
   });
-  const handleSubmit = (e) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     mutation.mutate({ name, description, status });
   };
@@ -92,7 +104,7 @@ export function CreateTaskModal({ isOpen, onClose }) {
             />
             <select
               value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              onChange={(e) => setStatus(e.target.value as TaskStatus)}
               className="w-full p-2 border border-gray-300 rounded"
             >
               <option value="TODO">To Do</option>

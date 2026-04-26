@@ -1,14 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import React, { useState } from "react";
 import { login } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
+type LoginDetails = {
+  email: string;
+  password: string;
+};
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: (credentials) => login(credentials),
+    mutationFn: (credentials: LoginDetails) => login(credentials),
     onSuccess: (data) => {
       // console.log("=== FULL LOGIN RESPONSE ===");
       // console.log(data);
@@ -26,7 +30,7 @@ export default function Login() {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     mutation.mutate({ email, password });
     // console.log("Login attempted", { email, password });
